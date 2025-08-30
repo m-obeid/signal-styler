@@ -96,7 +96,7 @@ sudo signal-styler custom.css
 
 ## 🎨 Themes
 
-signal-styler does not include any themes by default.
+signal-styler does not include any themes by default other than purple.css from the GitHub repo, which needs to be downloaded separately.
 
 Here are some that could work (didn't test):
 
