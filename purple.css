@@ -1,334 +1,662 @@
-/*
- _   _               ____
-| \ | | __ ___   __ | __ )  __ _ _ __ ___
-|  \| |/ _` \ \ / / |  _ \ / _` | '__/ __|
-| |\  | (_| |\ V /  | |_) | (_| | |  \__ \
-|_| \_|\__,_| \_/   |____/ \__,_|_|  |___/
-*/
-
-/* left most bar */
-.NavTabs {
-  background-color: #231D33 !important;
+.dark-theme .module-ConversationHeader {
+    background-color: #1E132B !important;
 }
 
-.NavTabs__ItemButton:hover {
-  background-color: #3D3144 !important;
+.dark-theme .ConversationView__pane {
+    background-color: #191023 !important;
 }
 
-.NavTabs__Item[aria-selected="true"] > span > .NavTabs__ItemButton {
-  background-color: #51455A !important;
+.dark-theme .NavTabs__Item:active .NavTabs__ItemButton, .dark-theme .NavTabs__Item[aria-selected="true"] .NavTabs__ItemButton {
+    background-color: #342A40 !important;
 }
 
-/* buttons in qr and link section of personal user profile */
-.UsernameLinkModalBody__actions__save,
-.UsernameLinkModalBody__actions__color {
-  background-color: #51455A !important;
+.dark-theme .NavSidebar {
+    background-color: #1E132B !important;
+    border-inline-end: none !important;
 }
 
-/* second to left bar */
-.NavSidebar {
-  background-color: #231D33 !important;
+.dark-theme .NavTabs {
+    background-color: #1E132B !important;
+    border-inline-end: none !important;
 }
 
-/* view archive button when clicking on ... */
-.ContextMenu__popper--single-item {
-  background-color: #3D3144 !important;
+.dark-theme .module-composition-input__input {
+    background-color: #342A40 !important;
+    color: #fff !important;
 }
 
-.module-conversation-list__item--contact-or-conversation--is-selected {
-  background-color: #51455A !important;
+.FunPopover__Dialog {
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  background: light-dark(#ffffff, #342A40) !important;
+  user-select: none;
+  overflow: clip;
+  -webkit-app-region: no-drag;
 }
 
-/* no archived chat text */
-.module-left-pane__archive-helper-text {
-  background-color: #3D3144 !important;
+.LeftPaneSearchInput__FilterButton--pressed {
+  border-radius: 9999px;
+  background: #893EA3 !important;
 }
 
-.module-conversation-list__item--contact-or-conversation:hover,
-.module-conversation-list__item--contact-or-conversation:focus,
-.module-conversation-list__item--archive-button:hover,
-.module-conversation-list__item--archive-button:focus {
-  background-color: #3D3144 !important;
+.ContactModal__official-badge::after {
+  -webkit-mask: url("../images/icons/v3/official/official-fill-compact.svg") no-repeat center;
+  -webkit-mask-size: 100%;
+  background-color: #893EA3 !important;
 }
 
-/*
- _   _                        ____
-| | | | ___  _ __ ___   ___  |  _ \ __ _  __ _  ___
-| |_| |/ _ \| '_ ` _ \ / _ \ | |_) / _` |/ _` |/ _ \
-|  _  | (_) | | | | | |  __/ |  __/ (_| | (_| |  __/
-|_| |_|\___/|_| |_| |_|\___| |_|   \__,_|\__, |\___|
-                                         |___/
-*/
-
-.Inbox__no-conversation-open {
-  background-color: #221D32 !important;
+.FunTabs__Tab:hover .FunTabs__TabButton, .FunTabs__Tab:focus .FunTabs__TabButton {
+  background: light-dark(#f6f6f6, #393045) !important;
 }
 
-/*
- _____         _   _                  _
-|_   _|____  _| |_(_)_ __   __ _     / \   _ __ ___  __ _
-  | |/ _ \ \/ / __| | '_ \ / _` |   / _ \ | '__/ _ \/ _` |
-  | |  __/>  <| |_| | | | | (_| |  / ___ \| | |  __/ (_| |
-  |_|\___/_/\_\\__|_|_| |_|\__, | /_/   \_\_|  \___|\__,_|
-                           |___/
-*/
-
-/* the bar at the top containing your contact name */
-.module-ConversationHeader {
-  background-color: #221D33 !important;
+#LeftPane > div > div.NavSidebar__Content > nav > div.module-left-pane__list--measure > div > button {
+    --color-fill-floating: #342A40 !important;
+    --color-fill-floating-pressed: #3f334d !important;
 }
 
-/* call, search, etc button present at conversation header */
-.module-ConversationHeader__button:hover,
-.module-ConversationHeader__button:focus {
-  background-color: #3D3144 !important;
+.dark-theme .ContextMenu__option:hover {
+  background-color: #393045 !important;
+}
+.dark-theme .ContextMenu__popper {
+  background: #342A40 !important;
+}
+.FunTabs__TabButtonIndicator {
+  position: absolute;
+  z-index: 1;
+  border-radius: 9999px;
+  top: 0;
+  inset-inline-start: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  pointer-events: none;
+  background: light-dark(#e9e9e9, #483F53) !important;
 }
 
-/* ... menu at conversation header */
-.react-contextmenu {
-  background-color: #3D3144 !important;
+.FunTooltip {
+  position: relative;
+  z-index: 100000;
+  max-width: calc(32ch + 16px);
+  padding-block: 4px;
+  padding-inline: 8px;
+  background: light-dark(#ffffff, #393045) !important;
+  color: light-dark(rgba(0, 0, 0, 0.8), rgba(255, 255, 255, 0.8));
+  border-radius: 6px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3), 0px 0px 4px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: -0.03px;
 }
 
-/* ... menu hover */
-.react-contextmenu-item--selected {
-  background-color: #51455A !important;
+
+.FunItem__Button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+  padding: 2px;
+  border-radius: 10px;
+  border: 1px solid light-dark(#ffffff, #00000000) !important;
+}
+.FunItem__Button:hover, .FunItem__Button:focus {
+  background: light-dark(#f6f6f6, #393045) !important;
 }
 
-/* the vm player that appears at top */
-.MiniPlayer {
-  background-color: #51455A !important;
+.FunSearch__Input {
+  appearance: none;
+  width: 100%;
+  border-radius: 8px;
+  border: none;
+  padding-block: 6px;
+  padding-inline-end: 12px;
+  padding-inline-start: 42px;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.08px;
+  color: light-dark(#000000, #ffffff);
+  background: light-dark(#e9e9e9, #483F53) !important;
 }
 
-/* conversation area */
-.module-timeline {
-  background-color: #221D32 !important;
+.FunTabs__TabPanelInner {
+  background: light-dark(#ffffff, #342A40) !important;
 }
 
-/* messages */
-.module-message__container--incoming {
-  background-color: #3D3144 !important;
+.FunSubNav__ListBoxItem:hover .FunSubNav__ListBoxItem__Button {
+  background: light-dark(#f6f6f6, #393045) !important;
 }
 
-/* replying box */
-.module-quote--incoming > .module-quote__primary,
-.module-quote--incoming > .module-quote__icon-container {
-  background-color: #51455A !important;
-  border: 0px !important;
+.FunSubNav__ListBoxItem__ButtonIndicator {
+  z-index: 0;
+  position: absolute;
+  border-radius: 10px;
+  top: 0;
+  inset-inline-start: 0;
+  width: 100%;
+  height: 100%;
+  background: light-dark(#e9e9e9, #483F53) !important;
 }
 
-/* call again button */
-.module-Button--system-message {
-  background-color: #51455A !important;
+.FunSubNav__Scroller::before {
+  /* stylelint-disable-next-line liberty/use-logical-spec */
+  left: 0;
+  background: linear-gradient(to right, light-dark(#ffffff, #342A40) 20%, transparent) !important;
+}
+.FunSubNav__Scroller::after {
+  /* stylelint-disable-next-line liberty/use-logical-spec */
+  right: 0;
+  background: linear-gradient(to left, light-dark(#ffffff, #342A40) 20%, transparent) !important;
 }
 
-/* the area where you write message, attach file, send vm, etc. */
-.CompositionArea {
-  background-color: #221D33 !important;
+
+.FunSubNav__ScrollerMask--Left {
+  /* stylelint-disable-next-line liberty/use-logical-spec */
+  left: 0;
+  background: linear-gradient(to right, light-dark(#ffffff, #342a40) 20%, transparent) !important;
 }
 
-/* the actual typing box */
-.module-composition-input__input {
-  background-color: #3D3144 !important;
+.FunSubNav__ScrollerMask--Right {
+  /* stylelint-disable-next-line liberty/use-logical-spec */
+  right: 0;
+  background: linear-gradient(to left, light-dark(#ffffff, #342a40) 20%, transparent) !important;
 }
 
-/* the today or yesterday thing that appears when you scroll up */
-.TimelineDateHeader--floating {
-  background-color: #3D3144 !important;
+
+.FunSubNav__Button:hover {
+  background: light-dark(#f6f6f6, #393045) !important;
 }
 
-.TimelineFloatingHeader__spinner-container {
-  background-color: #3D3144 !important;
+
+.FunButton[aria-expanded=true] {
+  background: light-dark(#e9e9e9, #393045) !important;
 }
 
-.ScrollDownButton {
-  background-color: #3D3144 !important;
+
+.CompositionArea__send-button::after {
+  -webkit-mask: url("../images/icons/v3/send/send-fill.svg") no-repeat center;
+  -webkit-mask-size: 100%;
+  background-color: #fff !important;
 }
 
-/*
-  ____      _ _ _                  _
- / ___|__ _| | (_)_ __   __ _     / \   _ __ ___  __ _
-| |   / _` | | | | '_ \ / _` |   / _ \ | '__/ _ \/ _` |
-| |__| (_| | | | | | | | (_| |  / ___ \| | |  __/ (_| |
- \____\__,_|_|_|_|_| |_|\__, | /_/   \_\_|  \___|\__,_|
-                        |___/
-*/
 
-/* background when contact isn't selected */
-.CallsTab__EmptyState {
-  background-color: #221D32 !important;
+.dark-theme .module-conversation-list__item--contact-or-conversation--is-selected {
+  background-color: #393045 !important;
 }
 
-/* background when contact is selected */
-.CallsTab__ConversationCallDetails {
-  background-color: #221D32 !important;
+.module-conversation-list__item--contact-or-conversation:hover:not(:disabled, .module-conversation-list__item--contact-or-conversation--disabled, .module-conversation-list__item--contact-or-conversation--is-selected), .module-conversation-list__item--contact-or-conversation[data-axo-contextmenu-state=open] {
+  background-color: light-dark(#e9e9e9, #2B2137) !important;
+}
+.module-conversation-list__item--contact-or-conversation:hover:not(:disabled, .module-conversation-list__item--contact-or-conversation--disabled, .module-conversation-list__item--contact-or-conversation--is-selected) .module-conversation-list__item--contact-or-conversation__unread-indicator, .module-conversation-list__item--contact-or-conversation[data-axo-contextmenu-state=open] .module-conversation-list__item--contact-or-conversation__unread-indicator {
+  border-color: light-dark(#e9e9e9, #2B2137) !important;
+}
+.keyboard-mode .module-conversation-list__item--contact-or-conversation:focus:not(:disabled, .keyboard-mode .module-conversation-list__item--contact-or-conversation--disabled, .keyboard-mode .module-conversation-list__item--contact-or-conversation--is-selected) {
+  background-color: light-dark(#e9e9e9, #2B2137) !important;
+}
+.keyboard-mode .module-conversation-list__item--contact-or-conversation:focus:not(:disabled, .keyboard-mode .module-conversation-list__item--contact-or-conversation--disabled, .keyboard-mode .module-conversation-list__item--contact-or-conversation--is-selected) .module-conversation-list__item--contact-or-conversation__unread-indicator {
+  border-color: light-dark(#e9e9e9, #2B2137) !important;
 }
 
-/* contact list sidebar item */
-.CallsList__ItemTile:hover {
-  background-color: #3D3144 !important;
+
+.dark-theme .module-message__container--incoming {
+  background-color: #342A40 !important;
+  color: #e9e9e9;
 }
 
-.CallsList__ItemTile[aria-selected="true"] {
-  background-color: #51455A !important;
+.ConversationDetails-membership-list__add-members-icon, .ConversationDetails-membership-list__add-to-group-icon, .ConversationDetails-groups__add-members-icon, .ConversationDetails-groups__add-to-group-icon {
+  align-items: center;
+  border-radius: 100%;
+  display: flex;
+  height: 32px;
+  justify-content: center;
+  width: 32px;
+  background: light-dark(#f6f6f6, #342A40) !important;
 }
 
-.CallsNewCall_ItemActionButton {
-  background-color: #685870 !important;
+
+.module-Modal__close-button:hover, .module-Modal__close-button:focus {
+  box-shadow: 0 0 0 2px #8d2ced !important;
 }
 
-/*
- ____  _                        _
-/ ___|| |_ ___  _ __ _   _     / \   _ __ ___  __ _
-\___ \| __/ _ \| '__| | | |   / _ \ | '__/ _ \/ _` |
- ___) | || (_) | |  | |_| |  / ___ \| | |  __/ (_| |
-|____/ \__\___/|_|   \__, | /_/   \_\_|  \___|\__,_|
-                     |___/
-*/
+.dark-theme .module-Modal {
+  background: #1E132B !important;
+  color: #e9e9e9;
+}
+
+
+.keyboard-mode .CircleCheckbox__checkbox input:focus::before {
+  border-color: #893EA3 !important;
+}
+
+
+.CircleCheckbox__checkbox input[type=checkbox]:checked:not([disabled])::before {
+  background: #893EA3 !important;
+  border: 1.5px solid #893EA3 !important;
+}
+
+.dark-theme .RecordingComposer__content {
+  background: #342A40 !important;
+}
+
+.MediaEditor__close:hover, .MediaEditor__close:focus {
+  box-shadow: 0 0 0 2px #8d2ced !important;
+}
+
+.ConversationDetails-panel-row__root--button:hover:not(:disabled) {
+  background-color: light-dark(#f6f6f6, #2B2137) !important;
+}
+
+.module-Modal__close-button:hover, .module-Modal__close-button:focus {
+  box-shadow: 0 0 0 2px #8d2ced !important;
+}
+
+.dark-theme .StoryListItem__button:hover, .dark-theme .StoryListItem__button--active {
+  background: #2B2137 !important;
+}
+
+.CallsTab__EmptyState, .CallsTab__ConversationCallDetails {
+  background: #1E132B !important;
+}
+
+.dark-theme.keyboard-mode .StoryListItem__button:focus {
+  background: #2B2137 !important;
+}
+
+.dark-theme .Stories {
+  background: #1E132B !important;
+}
+
+.dark-theme .MyStories__story__more__button {
+  background: #342A40 !important;
+}
+
+.dark-theme .MyStories__story__more__button:hover {
+  background: #40364B !important;
+}
+
+.dark-theme .MyStories__story:hover .MyStories__story__download,
+.dark-theme .MyStories__story:hover .MyStories__story__more__button {
+  background: #40364B !important;
+}
+
+.MyStories__avatar__add-story {
+  border-radius: 9999px;
+  align-items: center;
+  background: #9140c9 !important;
+  border: 2px solid;
+  bottom: -2px;
+  display: flex;
+  height: 20px;
+  justify-content: center;
+  position: absolute;
+  inset-inline-end: -4px;
+  width: 20px;
+  z-index: 1;
+}
+
+.StoryCreator {
+  background-color: #1E132B80 !important;
+  background: linear-gradient(180deg, #1e132b, #1E132B80) !important;
+  backdrop-filter: blur(12px) !important;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  inset-inline-start: 0;
+  position: absolute;
+  top: 0;
+  user-select: none;
+  z-index: 99;
+}
+
+.MediaEditor__toolbar {
+  align-items: center;
+  background-color: transparent !important;
+  border-radius: 10px;
+  color: #ffffff;
+  display: flex;
+  height: 36px;
+  justify-content: center;
+  padding-block: 14px;
+  padding-inline: 12px;
+  margin-inline: 16px;
+  min-width: 418px;
+}
+
+.MediaEditor {
+  background-color: #1E132B80 !important;
+  background: linear-gradient(180deg, #1e132b, #1E132B80) !important;
+  backdrop-filter: blur(12px) !important;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  inset-inline-start: 0;
+  top: 0;
+  position: absolute;
+  user-select: none;
+  -webkit-app-region: no-drag;
+  z-index: 99;
+}
+
+.dark-theme .CallsList__Item--selected .CallsList__ItemTile {
+  background-color: #393045 !important;
+}
+
+.dark-theme .MyStories__story:hover {
+  background: #2B2137 !important;
+}
+
+.dark-theme .module-Button--details {
+  background-color: #483F53 !important;
+  color: #e9e9e9;
+}
 
 .Stories__placeholder {
-  background-color: #221D32 !important;
+  color: #5e5e5e;
+  background: transparent !important;
 }
 
-/*
- _   _                 ____             __ _ _
-| | | |___  ___ _ __  |  _ \ _ __ ___  / _(_) | ___
-| | | / __|/ _ \ '__| | |_) | '__/ _ \| |_| | |/ _ \
-| |_| \__ \  __/ |    |  __/| | | (_) |  _| | |  __/
- \___/|___/\___|_|    |_|   |_|  \___/|_| |_|_|\___|
-*/
-
-/* background of user details panel */
-.ConversationPanel,
-.ConversationPanel__header {
-  background-color: #221D32 !important;
+.FunGrid__HeaderButton:hover, .FunGrid__HeaderButton:focus {
+  background: light-dark(#f6f6f6, #393045) !important;
 }
 
-/* disappering message timer */
-.module-select > select {
-  background-color: #3D3144 !important;
+.FunGrid__HeaderPopoverDialog {
+  width: 328px;
+  border-radius: 8px;
+  box-shadow: 0 7px 18px rgba(0, 0, 0, 0.3);
+  background: light-dark(#ffffff, #393045) !important;
+  user-select: none;
+  overflow: clip;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 }
 
-/* nickname, chatcolor, add to group and other button */
-.ConversationDetails-panel-row__root--button:hover {
-  background-color: #3D3144 !important;
+.dark-theme .Input__container {
+  background: #342A40 !important;
+  border-color: #342A40 !important;
+  color: #e9e9e9;
 }
 
-/* nickname edit menu*/
-.Input__container {
-  background-color: #3D3144 !important;
-  border-color: #9399b2 !important;
+.dark-theme .Input__container:focus-within {
+  border-color: #9551AC !important;
 }
 
-/* add to group button background color */
-.ConversationDetails-groups__add-to-group-icon {
-  background-color: #3D3144 !important;
+.Preferences__ChatFolders__ChatSelection__Item--Button:hover .Preferences__ChatFolders__ChatSelection__ItemContent,
+.Preferences__ChatFolders__ChatSelection__Item--Button .Preferences__ChatFolders__ChatSelection__ItemContent[data-axo-contextmenu-state=open],
+.Preferences__ChatFolders__ChatSelection__Item--Clickable:hover .Preferences__ChatFolders__ChatSelection__ItemContent,
+.Preferences__ChatFolders__ChatSelection__Item--Clickable .Preferences__ChatFolders__ChatSelection__ItemContent[data-axo-contextmenu-state=open] {
+  background: light-dark(#f6f6f6, #2B2137) !important;
 }
 
-/* the user profile, signal connection and safety number popup */
-.module-Modal {
-  background-color: #221D32 !important;
+.Preferences__ChatFolders__ChatSelection__ItemAvatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  background: light-dark(#e9e9e9, #342A40) !important;
 }
 
-/* mark as varified or clear verification button */
-.module-SafetyNumberViewer__button > button {
-  background-color: #51455A !important;
+.FunSkinTones__ListBoxItem[data-selected=true] .FunSkinTones__ListBoxItemButton {
+  background: light-dark(#e9e9e9, #393045) !important;
 }
 
-/*
-           _
- _ __ ___ (_)___  ___
-| '_ ` _ \| / __|/ __|
-| | | | | | \__ \ (__
-|_| |_| |_|_|___/\___|
-*/
-
-/* background when viewing image */
-.Lightbox__animated {
-  background-color: #221D32 !important;
+.Tabs {
+  border-bottom: none !important;
+  display: flex;
+  justify-content: space-around;
+  user-select: none;
 }
 
-/* many of the buttons */
-.module-Button {
-  background-color: #51455A !important;
+.FunSkinTones__ListBoxItem:hover .FunSkinTones__ListBoxItemButton, .FunSkinTones__ListBoxItem:focus .FunSkinTones__ListBoxItemButton {
+  background: light-dark(#f6f6f6, #483F53);
 }
 
-.module-Button:hover {
-  background-color: #3D3144 !important;
+.dark-theme .module-left-pane__archive-helper-text {
+  color: #b9b9b9;
+  background-color: #1E132B !important;
 }
 
-/*
- ____       _   _   _
-/ ___|  ___| |_| |_(_)_ __   __ _ ___
-\___ \ / _ \ __| __| | '_ \ / _` / __|
- ___) |  __/ |_| |_| | | | | (_| \__ \
-|____/ \___|\__|\__|_|_| |_|\__, |___/
-                            |___/
-*/
 
-/* side pannel of settings */
-.Preferences__page-selector {
-  background-color: #221D33 !important;
+.dark-theme .module-conversation-list__item--archive-button:hover, .dark-theme .module-conversation-list__item--archive-button:focus {
+  background-color: #2B2137 !important;
 }
 
-/* main settings pannel */
-.Preferences, .Preferences__settings-pane {
-  background-color: #221D33 !important;
+
+.dark-theme .module-conversation-list__item--contact-or-conversation .module-conversation-list__item--contact-or-conversation__unread-indicator {
+  background-color: #893EA3 !important;
 }
 
-/* page selector selected background */
-.Preferences__button--selected, .Preferences__profile-chip--selected {
-  background-color: #51455A !important;
+.dark-theme .module-conversation-list__item--archive-button__archived-count {
+  color: #b9b9b9;
+  background-color: #3D3646 !important;
 }
 
-.Preferences__profile-chip:focus, .Preferences__button:focus {
-  background-color: #3D3144 !important;
+.WhatsNew {
+  color: #ce60f5 !important;
 }
 
-.Preferences__profile-chip:hover, .Preferences__button:hover {
-  background-color: #342C3A !important;
+div.Preferences div.relative.flex.grow.flex-col div.relative.flex.grow.overflow-y-scroll > div.flex.w-full.max-w-\[798px\].grow.flex-col.items-center.px-\[10px\] {
+  --color-background-secondary: #342A40 !important;
 }
 
-/* language and chat color button */
-.Preferences__control--clickable:hover {
-  background-color: #3D3144 !important;
+.CircleCheckbox__checkbox input[type=radio]:checked::before {
+  border: 2px solid #893EA3 !important;
+}
+.CircleCheckbox__checkbox input[type=radio]:checked::after {
+  background: #893EA3 !important;
+  top: 4px;
+  inset-inline-start: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 6px;
 }
 
-.module-Button--secondary--destructive {
-  color: #f38ba8 !important;
+.CircleCheckbox__checkbox--small input[type=checkbox]:checked::before {
+  background: #893EA3 !important;
+  border: 1.5px solid #893EA3 !important;
 }
 
-.AvatarEditor__button {
-  background-color: #51455A !important;
+.CircleCheckbox__checkbox--small input[type=radio]:checked::before {
+  border: 2px solid #893EA3 !important;
+}
+.CircleCheckbox__checkbox--small input[type=radio]:checked::after {
+  background: #893EA3 !important;
+  top: 4px;
+  /* stylelint-disable-next-line liberty/use-logical-spec */
+  left: 4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
 }
 
-/*
-  ____      _ _
- / ___|__ _| | |
-| |   / _` | | |
-| |__| (_| | | |
- \____\__,_|_|_|
-*/
-
-.module-calling__container {
-  background-color: #221D32 !important;
+  --color-label-secondary: #342A40 !important;
 }
 
-/* cancel and settings button */
-.CallSettingsButton__Button {
-  background-color: #3D3144 !important;
+.ContactModal__official-badge::after {
+  -webkit-mask: url("../images/icons/v3/official/official-fill-compact.svg") no-repeat center;
+  -webkit-mask-size: 100%;
+  background-color: #893EA3 !important;
+}
+.dark-theme .Preferences {
+  background: #1E132B !important;
 }
 
-/* the bar at the bottom during calls */
-.CallControls {
-  background-color: #3D3144 !important;
+:root {
+  --color-color-fill-primary: #893EA3 !important;
+  --color-elevated-background-primary: #1E132B !important; 
+  --color-elevated-background-tertiary: #342A40 !important;
 }
 
-/* mike and camera button */
-.CallingButton__icon {
-  background-color: #685870 !important;
+.PreferencesDonations__description__read-more {
+  color: #ce60f5 !important;
 }
 
-/* your pfp box during call */
-.module-calling__background {
-  background-color: #3D3144 !important;
+.dark-theme .module-select select {
+  background-color: #342A40 !important;
+  border-color: #342A40 !important;
+  color: #e9e9e9;
+  border-radius: 9999px !important;
+}
+
+.dark-theme .Preferences__control--clickable:hover {
+  background: #2B2137 !important;
+}
+
+.Checkbox__container input {
+  height: 18px;
+  width: 18px;
+  accent-color: #893EA3 !important;
+}
+
+.ConversationDetails-panel-section__root:not(:first-child)::before {
+  border-top: 1px solid transparent;
+  border-top-color: light-dark(#dedede, #342A40) !important;
+}
+
+.Inbox__conversation-stack {
+  flex-grow: 1;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  background-color: #1E132B !important;
+}
+
+.dark-theme .AvatarEditor__button {
+  background-color: #4a4a4a;
+  color: #e9e9e9;
+}
+
+.dark-theme .Preferences__settings-row:not(:last-child) {
+  border-color: #342A40 !important;
+}
+
+.dark-theme .ProfileEditor__divider {
+  border-color: #342A40 !important;
+}
+
+.dark-theme .ConversationPanel,
+.dark-theme .ConversationPanel__header {
+  background-color: #1E132B !important;
+}
+
+.module-Button--primary {
+  color: #ffffff;
+  background: #893EA3 !important;
+  border-radius: 9999px !important;
+}
+
+.dark-theme .module-Button--secondary:hover:not(:disabled):not([aria-disabled=true]) {
+  background: #3D3646 !important;
+}
+.dark-theme .module-Button--secondary:active:not(:disabled):not([aria-disabled=true]) {
+  background: #3D3646 !important;
+}
+
+.dark-theme .module-Button--primary:hover:not(:disabled):not([aria-disabled=true]) {
+  background: #9551AC !important;
+}
+.dark-theme .module-Button--primary:active:not(:disabled):not([aria-disabled=true]) {
+  background: #9551AC !important;
+}
+
+.dark-theme .module-Button--secondary,
+.module-Button--destructive {
+  border-radius: 9999px !important;
+}
+
+.dark-theme .CallsNewCall__ItemActionButton:not(:disabled, [aria-disabled=true]):hover {
+  background: #393045 !important;
+}
+
+.dark-theme .Preferences__profile-chip--selected {
+  background: #393045 !important;
+}
+.dark-theme.keyboard-mode .Preferences__profile-chip:has(.Preferences__profile-chip__button:focus) {
+  background: #2B2137 !important;
+}
+.dark-theme.mouse-mode .Preferences__profile-chip:has(.Preferences__profile-chip__button:hover):not(.Preferences__profile-chip--selected) {
+  background: #2B2137 !important;
+}
+
+.dark-theme .Preferences__page-selector {
+  background: #1E132B !important;
+}
+
+.dark-theme .Preferences__button--selected {
+  background: #393045 !important;
+}
+
+.Preferences__content {
+  background: #1E132B !important;
+}
+
+.dark-theme.keyboard-mode .Preferences__button:focus {
+  background: #2B2137 !important;
+}
+
+.dark-theme.mouse-mode .Preferences__button:hover:not(.Preferences__button--selected) {
+  background: #2B2137 !important;
+}
+
+.dark-theme .module-Avatar--with-story--unread {
+  border-color: #9840c9 !important;
+}
+.module-Avatar--with-story--unread {
+  border-color: #9840c9 !important;
+}
+
+.dark-theme .CallsNewCall__ItemActionButton:not(:disabled, [aria-disabled=true]):hover {
+  background: #545454;
+}
+
+.dark-theme .module-Button--secondary {
+  background: #342A40 !important;
+}
+.dark-theme .module-Button--secondary--affirmative {
+  color: #d174f1 !important;
+}
+.dark-theme .module-Button--secondary--affirmative--discouraged {
+  color: #d174f180 !important;
+}
+
+.Lightbox__container {
+  background-color: #1E132B80 !important;
+  background: linear-gradient(180deg, #1e132b, #1E132B80) !important;
+  backdrop-filter: blur(12px) !important;
+  bottom: 0;
+  inset-inline: 0;
+  position: absolute;
+  top: 0;
+  z-index: 100;
+}
+
+.dark-theme .LeftPaneSearchInput__in-conversation-pill {
+  background-color: #2B2137 !important;
+}
+
+.dark-theme .module-ConversationHeader__button:not(:disabled):hover {
+  background: #2B2137 !important;
+}
+
+.dark-theme .module-ConversationHeader__button:not(:disabled):active {
+  background: #2B2137 !important;
+}
+.dark-theme .LeftPaneSearchInput__in-conversation-pill__x-button:hover, .dark-theme .LeftPaneSearchInput__in-conversation-pill__x-button:focus, .dark-theme .LeftPaneSearchInput__in-conversation-pill__x-button:active {
+  background: #9551AC !important;
+}
+
+
+.Toast {
+  background-color: #393045 !important;
 }
