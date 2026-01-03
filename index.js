@@ -22,6 +22,11 @@ parser.add_argument("-a", "--asar", {
   help: "path to Signal Desktop asar to patch",
 });
 
+parser.add_argument("-t", "--tray-icons", {
+  type: String,
+  help: "path to custom tray icons folder",
+});
+
 parser.add_argument("custom.css", {
   type: String,
   help: "path to custom stylesheet",
@@ -76,12 +81,21 @@ if (!utils.isManifestModified(manifest)) {
 
   utils.patchManifest(manifest);
 } else
-  console.log("\n2. Signal-Styler already \x1b[32menabled\x1b[0m, continue ...");
+  console.log(
+    "\n2. Signal-Styler already \x1b[32menabled\x1b[0m, continue ..."
+  );
 
-console.log("\n3. Installing custom CSS ...");
+console.log(
+  "\n3. Installing custom CSS " +
+    (args["tray-icons"] ? " and tray icons " : "") +
+    "..."
+);
 
 // copy custom.css to patchDir
 utils.setStylesheet(args["custom.css"]);
+
+if (args["tray-icons"])
+  utils.setTrayIcons(args["tray-icons"]);
 
 console.log("\n4. Building Signal Desktop asar ...");
 
@@ -96,4 +110,3 @@ utils.build().then(() => {
     `\n\x1b[32mDone\x1b[0m! Restart Signal to see your beautiful new styles. \x1b[33m\u{1F3A8}\x1b[0m\x1b[33m\u{2728}\x1b[0m`
   );
 });
-

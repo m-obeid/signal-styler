@@ -121,14 +121,60 @@ class Utils {
   }
 
   /**
-   * Copies the given CSS file to the correct location inside the `patchDir`.
-   * @param {string} cssPath - Path to the custom stylesheet CSS file.
+   * Copies the given custom stylesheet to the correct location inside the `patchDir`.
+   * @param {string} cssPath - Path to the custom stylesheet.
+   * @throws {Error} If `cssPath` is null or undefined, or if the copy operation fails.
    */
   setStylesheet(cssPath) {
-    fs.copyFileSync(
-      cssPath,
-      path.join(this.patchDir, "stylesheets/custom.css")
-    );
+    if (cssPath === null || cssPath === undefined) {
+      throw new Error("cssPath cannot be null or undefined");
+    }
+
+    if (!fs.existsSync(cssPath)) {
+      throw new Error(`cssPath ${cssPath} does not exist`);
+    }
+
+    try {
+      fs.copyFileSync(
+        cssPath,
+        path.join(this.patchDir, "stylesheets/custom.css")
+      );
+    } catch (err) {
+      throw new Error(`Failed to copy stylesheet: ${err}`);
+    }
+  }
+
+  /**
+   * Deletes the old tray icons directory if it exists, and then copies the
+   * contents of the given tray icon directory to the correct location inside
+   * `patchDir`.
+   * @param {string} iconsPath - Path to the tray icon directory.
+   * @throws {Error} If `iconsPath` is null or undefined, or if the delete or copy operation fails.
+   */
+  setTrayIcons(iconsPath) {
+    if (iconsPath === null || iconsPath === undefined) {
+      throw new Error("iconsPath cannot be null or undefined");
+    }
+
+    if (!fs.existsSync(iconsPath)) {
+      throw new Error(`iconsPath ${iconsPath} does not exist`);
+    }
+
+    const oldIconsPath = path.join(this.patchDir, "images/tray-icons");
+
+    try {
+      if (fs.existsSync(oldIconsPath)) {
+        fs.rmSync(oldIconsPath, { recursive: true });
+      }
+
+      fs.cpSync(
+        iconsPath,
+        oldIconsPath,
+        { recursive: true }
+      );
+    } catch (err) {
+      throw new Error(`Failed to copy tray icons: ${err}`);
+    }
   }
 
   /**

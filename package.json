@@ -1,6 +1,6 @@
 {
   "name": "signal-styler",
-  "version": "1.0.1",
+  "version": "1.1",
   "description": "Add custom CSS to Signal Desktop",
   "main": "index.js",
   "bin": {

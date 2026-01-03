@@ -57,6 +57,62 @@ signal-styler [options] custom.css
   By default, the tool will try to locate it automatically.
   Useful if Signal is installed via **Flatpak**.
 
+- `-t, --tray-icons <path>`
+  Path to the custom tray icons folder.
+  Useful if you want to override the default tray icons with your own.
+
+  The tray icons folder should have the following structure:
+
+  ```bash
+  tray-icons
+  ├── alert
+  │   ├── signal-tray-icon-16x16-alert-1.png
+  │   ├── signal-tray-icon-16x16-alert-2.png
+  │   ├── signal-tray-icon-16x16-alert-3.png
+  │   ├── signal-tray-icon-16x16-alert-4.png
+  │   ├── signal-tray-icon-16x16-alert-5.png
+  │   ├── signal-tray-icon-16x16-alert-6.png
+  │   ├── signal-tray-icon-16x16-alert-7.png
+  │   ├── signal-tray-icon-16x16-alert-8.png
+  │   ├── signal-tray-icon-16x16-alert-9.png
+  │   ├── signal-tray-icon-16x16-alert-9+.png
+  │   ├── signal-tray-icon-256x256-alert-1.png
+  │   ├── signal-tray-icon-256x256-alert-2.png
+  │   ├── signal-tray-icon-256x256-alert-3.png
+  │   ├── signal-tray-icon-256x256-alert-4.png
+  │   ├── signal-tray-icon-256x256-alert-5.png
+  │   ├── signal-tray-icon-256x256-alert-6.png
+  │   ├── signal-tray-icon-256x256-alert-7.png
+  │   ├── signal-tray-icon-256x256-alert-8.png
+  │   ├── signal-tray-icon-256x256-alert-9.png
+  │   ├── signal-tray-icon-256x256-alert-9+.png
+  │   ├── signal-tray-icon-32x32-alert-1.png
+  │   ├── signal-tray-icon-32x32-alert-2.png
+  │   ├── signal-tray-icon-32x32-alert-3.png
+  │   ├── signal-tray-icon-32x32-alert-4.png
+  │   ├── signal-tray-icon-32x32-alert-5.png
+  │   ├── signal-tray-icon-32x32-alert-6.png
+  │   ├── signal-tray-icon-32x32-alert-7.png
+  │   ├── signal-tray-icon-32x32-alert-8.png
+  │   ├── signal-tray-icon-32x32-alert-9.png
+  │   ├── signal-tray-icon-32x32-alert-9+.png
+  │   ├── signal-tray-icon-48x48-alert-1.png
+  │   ├── signal-tray-icon-48x48-alert-2.png
+  │   ├── signal-tray-icon-48x48-alert-3.png
+  │   ├── signal-tray-icon-48x48-alert-4.png
+  │   ├── signal-tray-icon-48x48-alert-5.png
+  │   ├── signal-tray-icon-48x48-alert-6.png
+  │   ├── signal-tray-icon-48x48-alert-7.png
+  │   ├── signal-tray-icon-48x48-alert-8.png
+  │   ├── signal-tray-icon-48x48-alert-9.png
+  │   └── signal-tray-icon-48x48-alert-9+.png
+  └── base
+    ├── signal-tray-icon-16x16-base.png
+    ├── signal-tray-icon-256x256-base.png
+    ├── signal-tray-icon-32x32-base.png
+    └── signal-tray-icon-48x48-base.png
+  ```
+
 - `-v, --version`
   Show the version number.
 
