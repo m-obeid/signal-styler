@@ -107,10 +107,10 @@ signal-styler [options] custom.css
   │   ├── signal-tray-icon-48x48-alert-9.png
   │   └── signal-tray-icon-48x48-alert-9+.png
   └── base
-    ├── signal-tray-icon-16x16-base.png
-    ├── signal-tray-icon-256x256-base.png
-    ├── signal-tray-icon-32x32-base.png
-    └── signal-tray-icon-48x48-base.png
+      ├── signal-tray-icon-16x16-base.png
+      ├── signal-tray-icon-256x256-base.png
+      ├── signal-tray-icon-32x32-base.png
+      └── signal-tray-icon-48x48-base.png
   ```
 
 - `-v, --version`
