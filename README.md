@@ -37,6 +37,18 @@ cd signal-styler
 makepkg -si
 ```
 
+### Option 3: Run from source (**for developers**)
+
+Only do this to test new features before releases or for contributing.
+
+```bash
+git clone https://github.com/m-obeid/signal-styler.git
+cd signal-styler
+npm install -g pnpm # if not working try sudo or install through your package manager
+pnpm install
+node . -v # run node . instead of signal-styler
+```
+
 ---
 
 ## 🚀 Usage
