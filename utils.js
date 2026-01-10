@@ -1,15 +1,17 @@
 const asar = require("@electron/asar");
+const plist = require("plist");
+const { NtExecutable, NtExecutableResource } = require("resedit");
+
 const fs = require("fs");
+const fsP = require("fs/promises");
 const path = require("path");
 const os = require("os");
+const crypto = require("node:crypto");
+const { execSync, spawnSync } = require("child_process");
 
-const NEW_ASAR_PATH = path.join(os.homedir(), ".cache", "signal-styled.asar");
+const NEW_ASAR_PATH = path.join(os.tmpdir(), "signal-styler-styled.asar");
 
-const BACKUP_ASAR_PATH = path.join(
-  os.homedir(),
-  ".cache",
-  "signal-original.asar"
-);
+const BACKUP_ASAR_PATH = path.join(os.tmpdir(), "signal-styler-backup.asar");
 
 const MODDED_MANIFEST_HEADER = `/* SIGNAL-STYLER */ @import "custom.css"; /* SIGNAL-STYLER */`;
 
@@ -74,7 +76,7 @@ class Utils {
         ? path.join(
             process.env.LOCALAPPDATA,
             "Programs",
-            "Signal",
+            "signal-desktop",
             "resources",
             "app.asar"
           )
@@ -167,11 +169,7 @@ class Utils {
         fs.rmSync(oldIconsPath, { recursive: true });
       }
 
-      fs.cpSync(
-        iconsPath,
-        oldIconsPath,
-        { recursive: true }
-      );
+      fs.cpSync(iconsPath, oldIconsPath, { recursive: true });
     } catch (err) {
       throw new Error(`Failed to copy tray icons: ${err}`);
     }
@@ -241,6 +239,140 @@ class Utils {
   install() {
     // install new asar
     fs.copyFileSync(NEW_ASAR_PATH, this.asarPath);
+  }
+
+  /**
+   * Patches the asar integrity check for the given platform.
+   * Needed for macOS and Windows otherwise Signal Desktop will reject the patched asar.
+   * @returns {Promise<{success: boolean, level: string, message: string}>} - A Promise that resolves to an object with the following structure:
+   *   - success: boolean - true if the patch was successful, false otherwise.
+   *   - level: string - "warn" if the patch was not successful and a warning message is available, or undefined otherwise.
+   *   - message: string - A message explaining why the patch was not successful, or undefined if the patch was successful.
+   */
+  async patchAsarIntegrity() {
+    const isAssumedPath = this.asarPath === this.assumeAsarPath();
+    let proc, stdout, match;
+    switch (process.platform) {
+      case "darwin":
+        // macOS makes this easier
+        // Simply edit the Info.plist file and resign the app with codesign (ad-hoc)
+        const appDir = isUnassumedPath
+          ? this.asarPath.replace(
+              "Contents/Resources/app.asar",
+              ""
+            )
+          : false;
+
+        if (!appDir)
+          return {
+            success: false,
+            level: "warn",
+            message: `macOS versions of Signal Desktop use asar integrity protection. Since your asar path is not the default, signal-styler can't fix it automatically.
+
+You can fix it manually by editing the Info.plist file inside the target app bundle and resigning it with codesign (ad-hoc).
+The SHA256 hash you need is shown when you run Signal from Terminal.
+See https://github.com/m-obeid/signal-styler/issues/1#issuecomment-3726382244 for more information.`,
+          }; // user chose custom asar path, can't patch
+
+	// get sha256 value first
+        proc = spawnSync(path.join(appDir, "Contents", "MacOS", "Signal"), [], {
+            cwd: path.dirname(exePath),
+            encoding: "utf8"
+        });
+        stdout = (proc.stdout || "") + (proc.stderr || "");
+        match = stdout.match(/Integrity check failed for asar archive\s*\(\s*[a-f0-9]{64}\s+vs\s+([a-f0-9]{64})\s*\)/i);
+        
+        if (!match) {
+            throw new Error("Could not obtain new SHA256 hash from Signal's stdout.");
+        }
+
+        const infoPlistPath = path.join(appDir, "Contents", "Info.plist");
+        const infoPlist = plist.parse(fs.readFileSync(infoPlistPath, "utf8"));
+        infoPlist.ElectronAsarIntegrity["Resources/app.asar"].hash =
+          match[1];
+        fs.writeFileSync(infoPlistPath, plist.build(infoPlist));
+
+        // resign app with codesign
+        execSync("codesign --force --deep --sign - " + appDir.replaceAll(" ", "\\ "));
+        break;
+      case "win32":
+        // Windows uses resources inside the executable to store the hash
+        // These can be edited manually using resource hacker.
+        // I will use resedit for this which is unneccesarily complex ugh.
+
+        // Get the path to the executable
+        const exePath = isAssumedPath
+          ? this.asarPath.replace("resources\\app.asar", "Signal.exe")
+          : false;
+
+        if (!exePath)
+          return {
+            success: false,
+            level: "warn",
+            message: `Windows versions of Signal Desktop use asar integrity protection. Since your asar path is not the default, signal-styler can't fix it automatically.
+
+You can fix it manually by editing the resources inside the target executable using a tool like Resource Hacker.
+The SHA256 hash you need is shown when you run Signal from Command Prompt.
+
+Open your Signal.exe in Resource Hacker and uncollapse INTEGRITY to open the ELECTRONASAR entry. Override the hash with the one you need and click the Compile button (green play button or just F5). The star for ELECTRONASAR should be red now. Click the Save button to save the changes.`,
+          };
+
+        // get sha256 value first
+        proc = spawnSync(exePath, [], {
+            cwd: path.dirname(exePath),
+            encoding: "utf8"
+        });
+        stdout = (proc.stdout || "") + (proc.stderr || "");
+        match = stdout.match(/Integrity check failed for asar archive\s*\(\s*[a-f0-9]{64}\s+vs\s+([a-f0-9]{64})\s*\)/i);
+        
+        if (!match) {
+            throw new Error("Could not obtain new SHA256 hash from Signal's stdout.");
+        }
+
+        async function bypassIntegrity() {
+          const buffer = await fsP.readFile(exePath);
+          const executable = NtExecutable.from(buffer, { ignoreCert: true });
+          const resource = NtExecutableResource.from(executable);
+
+          // The structure expected by Electron's internal integrity check
+          const integrityData = [
+            {
+              file: "resources\\app.asar",
+              alg: "SHA256",
+              value: match[1],
+            },
+          ];
+
+          // Logic to find and replace the existing resource rather than just pushing
+          const integrityBuffer = Buffer.from(JSON.stringify(integrityData));
+
+          // We filter out any old ELECTRONASAR entries and add the new one
+          resource.entries = resource.entries.filter(
+            (e) => e.id !== "ELECTRONASAR"
+          );
+
+          resource.entries.push({
+            type: "INTEGRITY",
+            id: "ELECTRONASAR",
+            bin: integrityBuffer,
+            lang: 1033, // Default English (US)
+            codepage: 1200, // UTF-16
+          });
+
+          resource.outputResource(executable);
+          try {
+              execSync("taskkill /f /im Signal.exe", {stdio: "ignore"});
+          } catch {} // fail silently
+          await fsP.writeFile(exePath, Buffer.from(executable.generate()));
+        }
+
+        await bypassIntegrity();
+        break;
+    }
+
+    return {
+      success: true,
+    };
   }
 
   /**
