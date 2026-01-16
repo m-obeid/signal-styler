@@ -256,7 +256,7 @@ class Utils {
       case "darwin":
         // macOS makes this easier
         // Simply edit the Info.plist file and resign the app with codesign (ad-hoc)
-        const appDir = isUnassumedPath
+        const appDir = isAssumedPath
           ? this.asarPath.replace(
               "Contents/Resources/app.asar",
               ""
@@ -274,7 +274,10 @@ The SHA256 hash you need is shown when you run Signal from Terminal.
 See https://github.com/m-obeid/signal-styler/issues/1#issuecomment-3726382244 for more information.`,
           }; // user chose custom asar path, can't patch
 
-	// get sha256 value first
+		// on mac, we need to do codesign first, otherwisw we can't even run the app to get the key
+        execSync("codesign --force --deep --sign - " + appDir.replaceAll(" ", "\\ "));
+			
+	    // get sha256 value first
         proc = spawnSync(path.join(appDir, "Contents", "MacOS", "Signal"), [], {
             cwd: path.dirname(exePath),
             encoding: "utf8"
@@ -292,7 +295,7 @@ See https://github.com/m-obeid/signal-styler/issues/1#issuecomment-3726382244 fo
           match[1];
         fs.writeFileSync(infoPlistPath, plist.build(infoPlist));
 
-        // resign app with codesign
+        // resign app with codesign again, not sure if its neccesary but i suppose it wouldn't hurt
         execSync("codesign --force --deep --sign - " + appDir.replaceAll(" ", "\\ "));
         break;
       case "win32":
