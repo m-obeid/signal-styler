@@ -279,7 +279,7 @@ See https://github.com/m-obeid/signal-styler/issues/1#issuecomment-3726382244 fo
 			
 	    // get sha256 value first
         proc = spawnSync(path.join(appDir, "Contents", "MacOS", "Signal"), [], {
-            cwd: path.dirname(exePath),
+            cwd: path.dirname(appDir),
             encoding: "utf8"
         });
         stdout = (proc.stdout || "") + (proc.stderr || "");
