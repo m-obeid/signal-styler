@@ -1,6 +1,6 @@
 {
   "name": "signal-styler",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Add custom CSS to Signal Desktop",
   "main": "index.js",
   "bin": {
@@ -15,6 +15,8 @@
   "packageManager": "pnpm@10.15.0",
   "dependencies": {
     "@electron/asar": "^4.0.1",
-    "argparse": "^2.0.1"
+    "argparse": "^2.0.1",
+    "plist": "^3.1.0",
+    "resedit": "^3.0.1"
   }
 }

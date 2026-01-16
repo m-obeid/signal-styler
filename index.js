@@ -18,11 +18,13 @@ parser.add_argument("-v", "--version", {
 });
 
 parser.add_argument("-a", "--asar", {
+  dest: "asar",
   type: String,
   help: "path to Signal Desktop asar to patch",
 });
 
 parser.add_argument("-t", "--tray-icons", {
+  dest: "trayIcons",
   type: String,
   help: "path to custom tray icons folder",
 });
@@ -34,7 +36,7 @@ parser.add_argument("custom.css", {
 
 const args = parser.parse_args();
 
-utils.asarPath = args["asar"] || utils.assumeAsarPath();
+utils.asarPath = args.asar || utils.assumeAsarPath();
 
 console.log(
   `\x1b[34msignal-styler\x1b[0m \x1b[32mv${package.version}\x1b[0m - made by \x1b[35mPOCOGuy/m-obeid\x1b[0m`
@@ -60,8 +62,9 @@ if (!utils.validateAsarPath()) {
 }
 
 if (utils.checkNeedsSudo() && process.getuid() !== 0) {
+  const sudoEquivalent = process.platform === "win32" ? "command prompt running as admin" : "sudo or as root";
   console.error(
-    `\x1b[31mError\x1b[0m: You need to run signal-styler using \x1b[35msudo\x1b[0m or as root because Signal Desktop asar is installed to a protected directory.`
+    `\x1b[31mError\x1b[0m: You need to run signal-styler using \x1b[35m${sudoEquivalent}\x1b[0m because Signal Desktop asar is installed to a protected directory.`
   );
   console.info(
     "Run \x1b[35msudo signal-styler -h\x1b[0m for more information."
@@ -87,24 +90,30 @@ if (!utils.isManifestModified(manifest)) {
 
 console.log(
   "\n3. Installing custom CSS " +
-    (args["tray-icons"] ? " and tray icons " : "") +
+    (args.trayIcons ? "and tray icons " : "") +
     "..."
 );
 
 // copy custom.css to patchDir
 utils.setStylesheet(args["custom.css"]);
 
-if (args["tray-icons"])
-  utils.setTrayIcons(args["tray-icons"]);
+if (args.trayIcons)
+  utils.setTrayIcons(args.trayIcons);
 
 console.log("\n4. Building Signal Desktop asar ...");
 
-utils.build().then(() => {
+utils.build().then(async () => {
   utils.install();
 
   // clean up
   console.log("\n5. Cleaning up ...");
   utils.cleanup();
+
+  if (process.platform === "win32" || process.platform === "darwin") {
+    console.log("\n6. Patching asar integrity ...");
+    const result = await utils.patchAsarIntegrity();
+    if (result.level === "warn") console.warn(`\x1b[33m[WARNING]\x1b[0m`, result.message);
+  }
 
   console.log(
     `\n\x1b[32mDone\x1b[0m! Restart Signal to see your beautiful new styles. \x1b[33m\u{1F3A8}\x1b[0m\x1b[33m\u{2728}\x1b[0m`
