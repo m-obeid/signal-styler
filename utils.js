@@ -210,6 +210,33 @@ class Utils {
   }
 
   /**
+   * Walks the original asar header and returns a glob pattern that matches the
+   * files Signal ships outside the asar (in `<asar>.unpacked/`). On modern
+   * Signal Desktop builds these are native `.node` modules — Electron can't
+   * dlopen them from inside an asar, so they must remain unpacked when we
+   * rebuild. Returns null if the asar has no unpacked files.
+   * @returns {string|null}
+   */
+  getUnpackPattern() {
+    const header = asar.getRawHeader(this.asarPath).header;
+    const exts = new Set();
+    const walk = (node) => {
+      if (!node.files) return;
+      for (const child of Object.values(node.files)) {
+        if (child.unpacked && !child.files) {
+          const ext = path.extname(Object.keys(node.files).find((k) => node.files[k] === child) || "");
+          if (ext) exts.add(ext.slice(1));
+        }
+        walk(child);
+      }
+    };
+    walk(header);
+    if (exts.size === 0) return null;
+    if (exts.size === 1) return `*.${[...exts][0]}`;
+    return `*.{${[...exts].join(",")}}`;
+  }
+
+  /**
    * Builds a new Signal Desktop asar file by first unpacking the full asar to
    * the `buildDir`, then copying the content of the `patchDir` over it, then
    * backing up the original asar by copying it to `BACKUP_ASAR_PATH`, and
@@ -219,6 +246,10 @@ class Utils {
    *                            complete.
    */
   async build() {
+    // Preserve the same unpack pattern Signal originally used so native
+    // modules (.node files) stay outside the asar where Electron can dlopen them.
+    const unpackPattern = this.getUnpackPattern();
+
     // unpack full asar to buildDir
     asar.extractAll(this.asarPath, this.buildDir);
 
@@ -229,7 +260,7 @@ class Utils {
     fs.copyFileSync(this.asarPath, BACKUP_ASAR_PATH);
 
     // build asar
-    await asar.createPackage(this.buildDir, NEW_ASAR_PATH);
+    await asar.createPackageWithOptions(this.buildDir, NEW_ASAR_PATH, unpackPattern ? { unpack: unpackPattern } : {});
   }
 
   /**
@@ -387,6 +418,13 @@ Open your Signal.exe in Resource Hacker and uncollapse INTEGRITY to open the ELE
     fs.rmSync(this.patchDir, { recursive: true });
     fs.rmSync(this.buildDir, { recursive: true });
     fs.unlinkSync(NEW_ASAR_PATH);
+
+    // createPackageWithOptions writes unpacked files to a sibling `.unpacked`
+    // dir; remove it too if it was created. We don't install it — Signal's
+    // existing `app.asar.unpacked/` is left in place.
+    const newAsarUnpacked = NEW_ASAR_PATH + ".unpacked";
+    if (fs.existsSync(newAsarUnpacked))
+      fs.rmSync(newAsarUnpacked, { recursive: true });
   }
 }
 
