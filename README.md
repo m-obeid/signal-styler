@@ -37,7 +37,19 @@ cd signal-styler
 makepkg -si
 ```
 
-### Option 3: Run from source (**for developers**)
+### Option 3: Install with **[Terra](https://terrapkg.com)**
+
+If you are using Fedora or its derivatives, you can install it from the Terra 3rd party package repository.
+
+```bash
+# First, add the Terra Repository
+sudo dnf install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
+
+# Then, install with dnf
+dnf install signal-styler
+```
+
+### Option 4: Run from source (**for developers**)
 
 Only do this to test new features before releases or for contributing.
 
